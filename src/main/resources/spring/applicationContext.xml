@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+			
+
+ <!--
+    <context:property-placeholder properties-ref="kadProperties" />
+-->
+	<!-- Activates various annotations to be detected in bean classes -->
+	<context:annotation-config />
+	
+	<!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.
+	 For example @Controller and @Service. Make sure to set the correct base-package-->
+	<context:component-scan base-package="kad.reports" />
+	
+	<!-- Configures the annotation-driven Spring MVC Controller programming model.
+	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
+<!--
+    <import resource="jasper-views.xml" />
+-->	
+    <bean id="kadProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+          p:location="classpath:spring/spring.properties" />
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <value>classpath:spring/spring.properties</value>
+        </property>
+    </bean>
+
+    <import resource="jdbc-context.xml" />
+    <import resource="tiles-context.xml" />
+    <import resource="spring-security.xml" />
+
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+    </bean>
+
+</beans>
